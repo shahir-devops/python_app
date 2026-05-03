@@ -5,10 +5,10 @@ metadata:
   namespace: test
 spec:
   strategy:
-    type: rollingUpdate
+    type: RollingUpdate
+    rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
-    type: RollingUpdate
   minReadySeconds: 30
   replicas: 3
   selector:
@@ -38,3 +38,42 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 30
           timeoutSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          timeoutSeconds: 20
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: order_svc
+  namespace: test
+spec:
+  type: ClusterIP
+  selector:
+    app: order
+  ports:
+  - port: 80
+    targetPort: 5000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: order_ingress
+  namespace: test
+spec:
+  rules:
+  - host: health.order
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name:  order_svc
+            port:
+              number: 80
+          
