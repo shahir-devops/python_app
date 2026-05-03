@@ -3,5 +3,6 @@ WORKDIR /python
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-WORKDIR /python/app
-CMD [ "python", "main.py" ]
+ENV PYTHONPATH=/python
+EXPOSE 5000
+CMD ["python", "-m", "app.main"]
