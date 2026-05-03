@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order_service
+  name: orderservice
   namespace: test
 spec:
   strategy:
@@ -20,7 +20,7 @@ spec:
         app: order
     spec:
       containers:
-      - name: order_service
+      - name: orderService
         image:  shahir5890/pythonorder:v1.0.version
         ports:
         - containerPort: 5000
@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Service 
 metadata:
-  name: order_svc
+  name: ordersvc
   namespace: test
 spec:
   type: ClusterIP
@@ -62,7 +62,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: order_ingress
+  name: orderingress
   namespace: test
 spec:
   rules:
@@ -73,7 +73,7 @@ spec:
         pathType: Prefix
         backend:
           service: 
-            name:  order_svc
+            name:  ordersvc
             port:
               number: 80
           
