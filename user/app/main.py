@@ -6,6 +6,9 @@ app = Flask(__name__)
 
 app.register_blueprint(order_bp)
 
+@app.route("/")
+def hello():
+    return "hello this is shahir"
 @app.route("/health")
 def health():
     return {"status": "UP"}
