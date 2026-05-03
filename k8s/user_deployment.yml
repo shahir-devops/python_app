@@ -20,7 +20,7 @@ spec:
         app: order
     spec:
       containers:
-      - name: orderService
+      - name: orderservice
         image:  shahir5890/pythonorder:v1.0.version
         ports:
         - containerPort: 5000
