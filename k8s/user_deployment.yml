@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: order_service
-        image:  shahirsyed5890/order_service:v1.0.version
+        image:  shahir5890/pythonorder:v1.0.version
         ports:
         - containerPort: 5000
         resources:
